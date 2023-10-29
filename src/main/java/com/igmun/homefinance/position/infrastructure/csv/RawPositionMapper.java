@@ -1,7 +1,6 @@
 package com.igmun.homefinance.position.infrastructure.csv;
 
 import com.igmun.homefinance.position.domain.Position;
-import com.igmun.homefinance.position.infrastructure.csv.RawPositionCsvDto;
 import org.springframework.stereotype.Component;
 
 @Component

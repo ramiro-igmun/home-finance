@@ -4,6 +4,8 @@ import com.igmun.homefinance.category.domain.Category;
 import com.igmun.homefinance.position.domain.Position;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+
 @Component
 public class PositionJdbcMapper {
   public PositionJdbc fromPosition(Position position) {
@@ -14,6 +16,6 @@ public class PositionJdbcMapper {
   public Position toPosition(PositionJdbc positionJdbc) {
     return new Position(positionJdbc.getId(), positionJdbc.getDate(), positionJdbc.getAmount(),
       new Category(positionJdbc.getCategory()), positionJdbc.getType(),
-      positionJdbc.getDescription());
+      positionJdbc.getDescription(), Collections.emptyList());
   }
 }

@@ -28,6 +28,7 @@ public class HomeFinanceApplication implements CommandLineRunner {
   public void run(String... args) throws Exception {
     List<RawPositionCsvDto> rawPositions = rawPositionCsvRepository.getList();
     List<Position> positions = rawPositions.stream().map(rawPositionMapper::fromRawPosition).toList();
+    //TODO add new positions after the last position already persisted and apply tags automatically
     if (positionRepository.getAll().isEmpty()) {
       positionRepository.saveAll(positions);
     }
