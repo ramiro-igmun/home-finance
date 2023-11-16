@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CategoryJdbcMapper {
   CategoryJdbc fromCategory(Category category) {
-    return new CategoryJdbc(null, category.tag());
+    return new CategoryJdbc(null, category.getTag());
   }
 
   Category toCategory(CategoryJdbc categoryJdbc) {

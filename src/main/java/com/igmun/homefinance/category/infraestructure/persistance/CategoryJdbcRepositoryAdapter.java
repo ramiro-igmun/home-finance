@@ -5,7 +5,9 @@ import com.igmun.homefinance.category.domain.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 @Repository
 @RequiredArgsConstructor
@@ -20,12 +22,18 @@ public class CategoryJdbcRepositoryAdapter implements CategoryRepository {
   }
 
   @Override
+  public List<Category> getAll() {
+    return StreamSupport.stream(categoryJdbcRepository.findAll().spliterator(), false)
+      .map(mapper::toCategory).toList();
+  }
+
+  @Override
   public void save(Category category) {
     categoryJdbcRepository.save(mapper.fromCategory(category));
   }
 
   @Override
-  public void delete(String tag) {
-    categoryJdbcRepository.deleteByTagIgnoreCase(tag);
+  public void delete(Category category) {
+    categoryJdbcRepository.deleteByTag(category.getTag());
   }
 }

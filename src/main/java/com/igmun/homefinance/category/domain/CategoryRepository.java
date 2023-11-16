@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface CategoryRepository  {
   Optional<Category> findByTag(String tag);
-  List<Category> getAllCategories();
+  List<Category> getAll();
   void save(Category category);
-  void delete(String tag);
+  void delete(Category category);
 }

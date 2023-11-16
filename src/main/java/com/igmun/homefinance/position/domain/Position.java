@@ -3,11 +3,13 @@ package com.igmun.homefinance.position.domain;
 import com.igmun.homefinance.category.domain.Category;
 import com.igmun.homefinance.position.domain.event.CategoryAssignedEvent;
 import com.igmun.homefinance.shared.event.DomainEvent;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -16,7 +18,7 @@ import java.util.List;
 public class Position {
   private Long id;
   private LocalDate date;
-  private BigDecimal amount;
+  private BigDecimal amount = BigDecimal.ZERO;
   private Category category = new Category("");
   private Type type;
   private String description = "";
@@ -35,6 +37,14 @@ public class Position {
   public void setCategory(Category category) {
     this.category = category;
     events.add(CategoryAssignedEvent.from(category));
+  }
+
+  public void unAssignCategory() {
+    this.category = null;
+  }
+
+  public List<DomainEvent> getEvents() {
+    return Collections.unmodifiableList(events);
   }
 
   public enum Type {

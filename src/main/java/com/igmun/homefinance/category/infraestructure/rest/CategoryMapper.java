@@ -10,7 +10,7 @@ import java.util.List;
 public class CategoryMapper {
 
   public CategoryDto fromCategory(Category category) {
-    return new CategoryDto(category.tag());
+    return new CategoryDto(category.getTag());
   }
 
   public List<CategoryDto> fromCategoryList(Collection<Category> categories) {

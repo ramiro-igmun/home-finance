@@ -11,7 +11,7 @@ public class RestPositionMapper {
   public RestPositionDto fromPosition(Position position) {
     return new RestPositionDto(position.getDate(),
       position.getAmount().setScale(2, RoundingMode.DOWN).toPlainString(),
-      position.getCategory().tag(),
+      position.getCategory().getTag(),
       position.getType().toString(),
       position.getDescription());
   }

@@ -16,7 +16,7 @@ public class CategoryAssignedEvent extends DomainEvent {
   }
 
   public static CategoryAssignedEvent from(Category category) {
-    return new CategoryAssignedEvent(new Data(category.tag()), Instant.now());
+    return new CategoryAssignedEvent(new Data(category.getTag()), Instant.now());
   }
   public record Data(String tag){}
 }

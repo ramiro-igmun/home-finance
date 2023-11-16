@@ -14,7 +14,7 @@ public class AssignCategoryService {
   private final ApplicationEventBus applicationEventBus;
 
   public void assignCategory(String description, String tag) {
-    positionRepository.findByDescription(description).forEach(position -> {
+    positionRepository.findByDescriptionContaining(description).forEach(position -> {
       position.setCategory(new Category(tag));
       positionRepository.save(position);
     });

@@ -16,6 +16,6 @@ public class GetAllCategoriesService {
   private final CategoryRepository categoryRepository;
 
   public List<Category> getAllCategories() {
-    return categoryRepository.getAllCategories();
+    return categoryRepository.getAll();
   }
 }

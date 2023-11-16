@@ -1,11 +1,12 @@
 package com.igmun.homefinance.position.infrastructure.persistance;
 
+import com.igmun.homefinance.category.domain.Category;
 import com.igmun.homefinance.position.domain.PositionRepository;
 import com.igmun.homefinance.position.domain.Position;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +42,31 @@ public class PositionJdbcRepositoryAdapter implements PositionRepository {
 
   @Override
   public List<Position> findByDescription(String description) {
-    return jdbcRepository.findByDescription(description);
+    return jdbcRepository.findByDescription(description).stream().map(jdbcMapper::toPosition).toList();
+  }
+
+  @Override
+  public List<Position> findByDescriptionContaining(String description) {
+    return jdbcRepository.findByDescriptionContaining(description).stream().map(jdbcMapper::toPosition).toList();
+  }
+
+  @Override
+  public List<Position> findByCategory(Category category) {
+    return jdbcRepository.findByCategory(category.getTag()).stream().map(jdbcMapper::toPosition).toList();
+  }
+
+  @Override
+  public List<Position> findByDateBetween(LocalDate beginDate, LocalDate endDate) {
+    return jdbcRepository.findByDateBetween(beginDate, endDate).stream().map(jdbcMapper::toPosition).toList();
+  }
+
+  @Override
+  public Position getOldestPosition() {
+    return jdbcMapper.toPosition(jdbcRepository.getOldestPosition());
+  }
+
+  @Override
+  public Position getNewestPosition() {
+    return jdbcMapper.toPosition(jdbcRepository.getNewestPosition());
   }
 }
