@@ -13,7 +13,10 @@ create table if not exists CATEGORY
 (
   ID  DECFLOAT(40) auto_increment
     primary key,
-  TAG CHARACTER VARYING unique
+  TAG CHARACTER VARYING unique,
+  PARENT_CATEGORY_ID DECFLOAT(40),
+  constraint "PARENT_CATEGORY_ID_fk"
+    foreign key (PARENT_CATEGORY_ID) references CATEGORY
 );
 
 create index if not exists tag_index on CATEGORY(TAG);

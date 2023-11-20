@@ -18,6 +18,7 @@ public class PositionJdbc {
   private final LocalDate date;
   private final BigDecimal amount;
   private final String category;
+  private final String parentCategory;
   private final Position.Type type;
   private final String description;
 }

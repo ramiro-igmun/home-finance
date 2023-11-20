@@ -10,12 +10,14 @@ import java.util.ArrayList;
 public class PositionJdbcMapper {
   public PositionJdbc fromPosition(Position position) {
     return new PositionJdbc(position.getId(), position.getDate(), position.getAmount(),
-      position.getCategory() == null ? null : position.getCategory().getTag(), position.getType(), position.getDescription());
+      position.getCategory() == null ? null : position.getCategory().getTag(),
+      position.getCategory() == null ? null : position.getParentCategory().getTag(),
+      position.getType(), position.getDescription());
   }
 
   public Position toPosition(PositionJdbc positionJdbc) {
     return new Position(positionJdbc.getId(), positionJdbc.getDate(), positionJdbc.getAmount(),
-      new Category(positionJdbc.getCategory()), positionJdbc.getType(),
-      positionJdbc.getDescription(), new ArrayList<>());
+      new Category(positionJdbc.getCategory()), new Category(positionJdbc.getParentCategory()), positionJdbc.getType(),
+      positionJdbc.getDescription());
   }
 }

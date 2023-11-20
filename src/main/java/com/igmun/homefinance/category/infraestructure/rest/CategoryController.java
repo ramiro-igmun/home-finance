@@ -1,5 +1,6 @@
 package com.igmun.homefinance.category.infraestructure.rest;
 
+import com.igmun.homefinance.category.application.AddSubCategoryService;
 import com.igmun.homefinance.category.application.CreateCategoryService;
 import com.igmun.homefinance.category.application.DeleteCategoryService;
 import com.igmun.homefinance.category.application.GetAllCategoriesService;
@@ -20,6 +21,7 @@ public class CategoryController {
   private final GetAllCategoriesService getAllCategoriesService;
   private final CreateCategoryService createCategoryService;
   private final DeleteCategoryService deleteCategoryService;
+  private final AddSubCategoryService addSubCategoryService;
   private final CategoryMapper categoryMapper;
 
   @GetMapping
@@ -32,6 +34,15 @@ public class CategoryController {
   @ResponseStatus(HttpStatus.CREATED)
   public void createCategory(@RequestBody CreateCategoryRequest createCategoryRequest) {
     createCategoryService.createCategory(createCategoryRequest.tag());
+  }
+
+  @PutMapping("/{tag}")
+  @ResponseStatus(HttpStatus.CREATED)
+  public void addSubCategory(
+    @RequestBody AddSubCategoryRequest addSubCategoryRequest,
+    @PathVariable String tag
+  ) {
+    addSubCategoryService.addSubCategory(tag, addSubCategoryRequest.tag());
   }
 
   @DeleteMapping("/{tag}")

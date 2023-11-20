@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
@@ -22,6 +23,11 @@ public class CategoryJdbcRepositoryAdapter implements CategoryRepository {
   }
 
   @Override
+  public Optional<Category> findParentCategoryByTag(String tag) {
+    return categoryJdbcRepository.findParentCategory(tag).map(mapper::toCategory);
+  }
+
+  @Override
   public List<Category> getAll() {
     return StreamSupport.stream(categoryJdbcRepository.findAll().spliterator(), false)
       .map(mapper::toCategory).toList();
@@ -34,6 +40,7 @@ public class CategoryJdbcRepositoryAdapter implements CategoryRepository {
 
   @Override
   public void delete(Category category) {
-    categoryJdbcRepository.deleteByTag(category.getTag());
+    CategoryJdbc categoryJdbc = categoryJdbcRepository.findByTagIgnoreCase(category.getTag()).orElseThrow(NoSuchElementException::new);
+    categoryJdbcRepository.delete(categoryJdbc);
   }
 }

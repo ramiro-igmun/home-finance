@@ -8,11 +8,19 @@ import java.util.Set;
 
 public final class Category {
   @Getter
+  private final Long id;
+  @Getter
   private final String tag;
   private final Set<Category> subCategories = new HashSet<>();
 
   public Category(String tag) {
+    this(null, tag, Collections.emptySet());
+  }
+
+  public Category(Long id, String tag, Set<Category> subCategories) {
+    this.id = id;
     this.tag = tag == null ? "" : tag.toUpperCase();
+    this.subCategories.addAll(subCategories);
   }
 
   public void addSubCategory(String tag) {

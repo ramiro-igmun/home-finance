@@ -9,6 +9,8 @@ import java.util.Optional;
 
 public interface CategoryJdbcRepository extends CrudRepository<CategoryJdbc, Long> {
   Optional<CategoryJdbc> findByTagIgnoreCase(String tag);
+  @Query("SELECT * FROM CATEGORY p JOIN CATEGORY c ON p.ID = c.PARENT_CATEGORY_ID WHERE c.TAG = :tag")
+  Optional<CategoryJdbc> findParentCategory(@Param("tag") String tag);
   @Modifying
   @Query("DELETE FROM CATEGORY WHERE CATEGORY.tag = :tag")
   void deleteByTag(@Param("tag") String tag);

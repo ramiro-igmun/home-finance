@@ -10,6 +10,7 @@ import java.util.List;
 public interface PositionJdbcRepository extends CrudRepository<PositionJdbc, Long> {
   List<PositionJdbc> findByDescription(String description);
   List<PositionJdbc> findByDescriptionContaining(String description);
+  @Query("select * from POSITION where CATEGORY = :category or PARENT_CATEGORY = :category")
   List<PositionJdbc> findByCategory(String category);
   @Query("select * from POSITION p where p.DATE <= :endDate and p.DATE >= :beginDate order by DATE")
   List<PositionJdbc> findByDateBetween(@Param("beginDate") LocalDate beginDate, @Param("endDate") LocalDate endDate);

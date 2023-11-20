@@ -1,9 +1,15 @@
 package com.igmun.homefinance.category.infraestructure.persistance;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceCreator;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Table("CATEGORY")
@@ -12,4 +18,13 @@ public class CategoryJdbc {
   @Id
   private final Long id;
   private final String tag;
+  @MappedCollection(idColumn = "PARENT_CATEGORY_ID")
+  private Set<CategoryJdbc> subCategories = new HashSet<>();
+
+  @PersistenceCreator
+  public CategoryJdbc(Long id, String tag, Set<CategoryJdbc> subCategories) {
+    this.id = id;
+    this.tag = tag;
+    this.subCategories = subCategories;
+  }
 }
