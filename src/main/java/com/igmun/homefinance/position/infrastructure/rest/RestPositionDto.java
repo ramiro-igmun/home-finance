@@ -8,6 +8,7 @@ import java.time.LocalDate;
 public record RestPositionDto(
   LocalDate date,
   String amount,
+  String categoryGroup,
   String category,
   String type,
   String description
