@@ -21,6 +21,10 @@ public class CategoryJdbcRepositoryAdapter implements CategoryRepository {
   public Optional<Category> findByTag(String tag) {
     return categoryJdbcRepository.findByTagIgnoreCase(tag).map(mapper::toCategory);
   }
+  @Override
+  public List<Category> findByGroupTag(String tag) {
+    return categoryJdbcRepository.findByGroupTag(tag).stream().map(mapper::toCategory).toList();
+  }
 
   @Override
   public Optional<Category> findParentCategoryByTag(String tag) {
@@ -30,6 +34,12 @@ public class CategoryJdbcRepositoryAdapter implements CategoryRepository {
   @Override
   public List<Category> getAll() {
     return StreamSupport.stream(categoryJdbcRepository.findAll().spliterator(), false)
+      .map(mapper::toCategory).toList();
+  }
+
+  @Override
+  public List<Category> getAllGroups() {
+    return categoryJdbcRepository.findAllGroups().stream()
       .map(mapper::toCategory).toList();
   }
 

@@ -1,6 +1,5 @@
 package com.igmun.homefinance.category.infraestructure.persistance;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Id;

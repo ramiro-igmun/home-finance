@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -25,8 +24,15 @@ public class CategoryController {
   private final CategoryMapper categoryMapper;
 
   @GetMapping
-  public ListCategoryResponse retrieveCategories() {
+  public ListCategoryResponse getGroups() {
     List<CategoryDto> categories = categoryMapper.fromCategoryList(getAllCategoriesService.getAllCategories());
+    return new ListCategoryResponse(categories);
+  }
+
+  @GetMapping("/{groupTag}")
+  public ListCategoryResponse getCategories(@PathVariable String groupTag) {
+    String tag = new String(Base64.getDecoder().decode(groupTag));
+    List<CategoryDto> categories = categoryMapper.fromCategoryList(getAllCategoriesService.findByParentTag(tag));
     return new ListCategoryResponse(categories);
   }
 
@@ -36,13 +42,14 @@ public class CategoryController {
     createCategoryService.createCategory(createCategoryRequest.tag());
   }
 
-  @PutMapping("/{tag}")
+  @PostMapping("/{group}")
   @ResponseStatus(HttpStatus.CREATED)
   public void addSubCategory(
     @RequestBody AddSubCategoryRequest addSubCategoryRequest,
-    @PathVariable String tag
+    @PathVariable String group
   ) {
-    addSubCategoryService.addSubCategory(tag, addSubCategoryRequest.tag());
+    group = new String(Base64.getDecoder().decode(group));
+    addSubCategoryService.addSubCategory(group, addSubCategoryRequest.tag());
   }
 
   @DeleteMapping("/{tag}")

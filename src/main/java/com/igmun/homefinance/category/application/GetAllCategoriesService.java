@@ -16,6 +16,10 @@ public class GetAllCategoriesService {
   private final CategoryRepository categoryRepository;
 
   public List<Category> getAllCategories() {
-    return categoryRepository.getAll();
+    return categoryRepository.getAllGroups();
+  }
+
+  public List<Category> findByParentTag(String tag) {
+    return categoryRepository.findByGroupTag(tag);
   }
 }
