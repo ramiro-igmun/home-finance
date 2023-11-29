@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class CategoryMapper {
 
   public CategoryDto fromCategory(Category category) {
-    return new CategoryDto(category.getTag(), category.getSubCategories().stream()
+    return new CategoryDto(category.getTag(), category.getColor(), category.getSubCategories().stream()
       .map(Category::getTag).collect(Collectors.toSet()));
   }
 

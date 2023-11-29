@@ -15,4 +15,5 @@ public record RawData(Map<String, Map<String, Double>> data) {
     currentData.put(label, data);
     return new RawData(currentData);
   }
+
 }

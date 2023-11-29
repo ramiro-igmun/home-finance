@@ -39,7 +39,7 @@ public class CategoryController {
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public void createCategory(@RequestBody CreateCategoryRequest createCategoryRequest) {
-    createCategoryService.createCategory(createCategoryRequest.tag());
+    createCategoryService.createCategory(createCategoryRequest.tag(), createCategoryRequest.color());
   }
 
   @PostMapping("/{group}")

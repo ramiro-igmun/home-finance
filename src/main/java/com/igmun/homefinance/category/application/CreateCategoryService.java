@@ -11,9 +11,9 @@ public class CreateCategoryService {
 
   private final CategoryRepository categoryRepository;
 
-  public void createCategory(String tag) {
+  public void createCategory(String tag, String color) {
     if (categoryRepository.findByTag(tag).isEmpty()) {
-      categoryRepository.save(new Category(tag));
+      categoryRepository.save(new Category(tag, color));
     }
   }
 
