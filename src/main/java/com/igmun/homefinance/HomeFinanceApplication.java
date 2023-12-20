@@ -44,8 +44,8 @@ public class HomeFinanceApplication implements CommandLineRunner {
       positionRepository.saveAll(Stream.concat(persistedPositions.stream(), afterNewestPosition.stream()).toList());
     }
     if (categoryRepository.getAll().isEmpty()) {
-      categoryRepository.save(new Category("Salary Ramiro"));
-      categoryRepository.save(new Category("Salary Leticia"));
+      categoryRepository.save(Category.fromTag("Salary Ramiro"));
+      categoryRepository.save(Category.fromTag("Salary Leticia"));
     }
   }
 }

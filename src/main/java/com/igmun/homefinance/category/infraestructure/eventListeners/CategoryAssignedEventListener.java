@@ -13,6 +13,6 @@ public class CategoryAssignedEventListener {
 
   @EventListener
   public void categoryAssigned(CategoryAssignedEvent categoryAssignedEvent) {
-    createCategoryService.createCategory(categoryAssignedEvent.getData().tag());
+    //Not implemented
   }
 }

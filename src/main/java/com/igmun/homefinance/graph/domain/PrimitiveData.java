@@ -1,5 +1,7 @@
 package com.igmun.homefinance.graph.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -7,10 +9,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record PrimitiveData(List<Dataset> datasets, Set<String> labels) {
   public record Dataset(List<BigDecimal> data, String label, String type){
     public Dataset(List<BigDecimal> data, String label) {
-      this(data, label, "bar");
+      this(data, label, null);
     }
   }
 

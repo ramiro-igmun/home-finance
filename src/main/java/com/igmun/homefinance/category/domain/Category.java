@@ -1,20 +1,28 @@
 package com.igmun.homefinance.category.domain;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.awt.*;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+@RequiredArgsConstructor
 public final class Category {
   @Getter
   private final Long id;
   @Getter
   private final String tag;
   @Getter
-  private final String color;
+  @Setter
+  private String color;
   private final Set<Category> subCategories = new HashSet<>();
+
+  public static Category fromTag(String tag) {
+    return new Category(tag, "red");
+  }
 
   public Category(String tag, String color) {
     this(null, tag, color, Collections.emptySet());
@@ -28,7 +36,7 @@ public final class Category {
   }
 
   public void addSubCategory(String tag) {
-    subCategories.add(new Category(tag, this.color));
+    subCategories.add(new Category(null, tag, this.color, Collections.emptySet()));
   }
 
   public Set<Category> getSubCategories() {

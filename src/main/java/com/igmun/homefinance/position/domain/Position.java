@@ -17,9 +17,9 @@ public class Position {
   private LocalDate date;
   private BigDecimal amount = BigDecimal.ZERO;
   @Setter
-  private Category category = new Category("");
+  private Category category = Category.fromTag("");
   @Setter
-  private Category parentCategory = new Category("");
+  private Category parentCategory = Category.fromTag("");
   private Type type;
   private String description = "";
 

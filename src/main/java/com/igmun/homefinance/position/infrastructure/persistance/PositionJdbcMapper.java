@@ -17,7 +17,7 @@ public class PositionJdbcMapper {
 
   public Position toPosition(PositionJdbc positionJdbc) {
     return new Position(positionJdbc.getId(), positionJdbc.getDate(), positionJdbc.getAmount(),
-      new Category(positionJdbc.getCategory()), new Category(positionJdbc.getParentCategory()), positionJdbc.getType(),
+      Category.fromTag(positionJdbc.getCategory()), Category.fromTag(positionJdbc.getParentCategory()), positionJdbc.getType(),
       positionJdbc.getDescription());
   }
 }

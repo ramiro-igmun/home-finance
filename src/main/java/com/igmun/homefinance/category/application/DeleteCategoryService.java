@@ -15,7 +15,7 @@ public class DeleteCategoryService {
   private final DomainEventPublisher domainEventPublisher;
 
   public void deleteCategory(String tag) {
-    categoryRepository.delete(new Category(tag));
-    domainEventPublisher.publish(CategoryDeletedEvent.from(new Category(tag)));
+    categoryRepository.delete(Category.fromTag(tag));
+    domainEventPublisher.publish(CategoryDeletedEvent.from(Category.fromTag(tag)));
   }
 }

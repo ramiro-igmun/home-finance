@@ -15,7 +15,7 @@ public class CategoryDeletedEventListener {
 
   @EventListener
   public void onCategoryDeleted(CategoryDeletedEvent categoryDeletedEvent) {
-    Category category = new Category(categoryDeletedEvent.getData().tag());
+    Category category = Category.fromTag(categoryDeletedEvent.getData().tag());
     unAssignCategoryService.unAssignCategory(category);
   }
 }

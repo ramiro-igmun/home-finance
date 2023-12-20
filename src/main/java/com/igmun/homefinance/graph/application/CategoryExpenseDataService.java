@@ -1,7 +1,9 @@
 package com.igmun.homefinance.graph.application;
 
 import com.igmun.homefinance.graph.domain.ObjectData;
+import com.igmun.homefinance.graph.domain.PrimitiveData;
 import com.igmun.homefinance.graph.domain.service.CategoryExpenseObjectDataConverter;
+import com.igmun.homefinance.graph.domain.service.CategoryExpensePrimitiveDataConverter;
 import com.igmun.homefinance.position.domain.Position;
 import com.igmun.homefinance.position.domain.PositionRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +16,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryExpenseDataService {
 
-  private final CategoryExpenseObjectDataConverter dataExtractor;
+  private final CategoryExpenseObjectDataConverter objectDataConverter;
+  private final CategoryExpensePrimitiveDataConverter primitiveDataConverter;
   private final PositionRepository positionRepository;
 
   public ObjectData getData(LocalDate beginDate, LocalDate endDate) {
     List<Position> positions = positionRepository.findByDateBetween(beginDate, endDate);
-    return dataExtractor.getData(positions);
+    return objectDataConverter.getData(positions);
+  }
+
+  public PrimitiveData getPrimitiveData(LocalDate beginDate, LocalDate endDate) {
+    List<Position> positions = positionRepository.findByDateBetween(beginDate, endDate);
+    return primitiveDataConverter.getData(positions);
   }
 
 }

@@ -1,10 +1,8 @@
 package com.igmun.homefinance.category.infraestructure.rest;
 
-import com.igmun.homefinance.category.application.AddSubCategoryService;
-import com.igmun.homefinance.category.application.CreateCategoryService;
-import com.igmun.homefinance.category.application.DeleteCategoryService;
-import com.igmun.homefinance.category.application.GetAllCategoriesService;
+import com.igmun.homefinance.category.application.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +19,7 @@ public class CategoryController {
   private final CreateCategoryService createCategoryService;
   private final DeleteCategoryService deleteCategoryService;
   private final AddSubCategoryService addSubCategoryService;
+  private final ChangeCategoryColorService changeCategoryColorService;
   private final CategoryMapper categoryMapper;
 
   @GetMapping
@@ -50,6 +49,12 @@ public class CategoryController {
   ) {
     group = new String(Base64.getDecoder().decode(group));
     addSubCategoryService.addSubCategory(group, addSubCategoryRequest.tag());
+  }
+
+  @PutMapping
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void changeColor(@RequestBody ChangeColorRequest request) {
+    changeCategoryColorService.changeCategoryColor(request.tag(), request.color());
   }
 
   @DeleteMapping("/{tag}")

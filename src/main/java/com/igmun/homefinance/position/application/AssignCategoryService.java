@@ -21,11 +21,11 @@ public class AssignCategoryService {
     Category parent = categoryRepository.findParentCategoryByTag(tag)
       .orElseThrow(NoSuchElementException::new);
     positionRepository.findByDescriptionContaining(description).forEach(position -> {
-      position.setCategory(new Category(tag));
+      position.setCategory(Category.fromTag(tag));
       position.setParentCategory(parent);
       positionRepository.save(position);
     });
-    applicationEventBus.publish(CategoryAssignedEvent.from(new Category(tag)));
+    applicationEventBus.publish(CategoryAssignedEvent.from(Category.fromTag(tag)));
   }
 
 }

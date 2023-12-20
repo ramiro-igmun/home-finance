@@ -14,6 +14,7 @@ create table if not exists CATEGORY
   ID  DECFLOAT(40) auto_increment
     primary key,
   TAG CHARACTER VARYING unique,
+  COLOR CHARACTER VARYING(20),
   PARENT_CATEGORY_ID DECFLOAT(40),
   constraint "PARENT_CATEGORY_ID_fk"
     foreign key (PARENT_CATEGORY_ID) references CATEGORY
